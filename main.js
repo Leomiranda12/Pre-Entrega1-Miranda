@@ -1,65 +1,66 @@
-
-alert("Ingrese la opcion del producto que desea llevar, para terminar la compra ingrese 0")
-let seleccionarProductos = Number(prompt( "1-Campera $3000 2-Remera $1500 3-Pantalon $5000 4-Zapatillas $6000 "))
-let seleccionarCantidad;
-let total = 0;
-
-
-const cantidad = (cant, precio) => {
-  return cant * precio
+const productos = [
+    { nombre : "arroz", precio : 100 },
+    { nombre : "galletas", precio : 150 },
+    { nombre : "leche", precio : 200 },
+    { nombre : "gaseosa", precio : 250 },
+    { nombre : "vino", precio : 350 },
+] ;
+let carrito = []
+let seleccion = prompt("¿Hola desea comprar algun producto?")
+while (seleccion != "si" && seleccion != "no") {
+    alert("Por favor ingrese si o no")
+    seleccion = prompt("¿Hola desea comprar algun producto?")
 }
 
-
-while (seleccionarProductos != 0) {
-  switch (seleccionarProductos) {
-    case 1:
-      seleccionarCantidad= Number(prompt("el producto seleccionado es Campera, indique la cantidad"))
-            total += cantidad(seleccionarCantidad, 3000)
-      break;
-      case 2:
-        seleccionarCantidad = Number(prompt("el producto seleccionado es Remera, indique la cantidad"))
-        total += cantidad(seleccionarCantidad, 1500)
-      break;
-    case 3:
-      seleccionarCantidad = Number(prompt("el producto seleccionado es Pantalon, indique la cantidad"))
-      total += cantidad(seleccionarCantidad, 5000)
-    break;
-    case 4:
-      seleccionarCantidad = Number(prompt("el producto seleccionado es Zapatillas, indique la cantidad"))
-      total += cantidad(seleccionarCantidad, 6000)
-    break;
-
-    default:
-      break;
-  }
-  seleccionarProductos = Number(prompt( "1-Campera $3000 2-Remera $1500 3-Pantalon $5000 4-Zapatillas $6000 "))
+if(seleccion == "si"){
+    alert("Aqui estan los productos")
+    let todoslosProductos = productos.map(
+        (producto) => producto.nombre + " " + producto.precio + "$"
+    );
+    alert(todoslosProductos.join(" -- "))
+} else if (seleccion == "no"){
+    alert("Gracias por venir,nos vemos pronto")
 }
 
-alert("el total de la compra es de: " + total)
+while (seleccion != "no") {
+    let producto = prompt("agrega uno o mas productos a tu carrito")
+    let = precio = 0
+    if (producto == "arroz" || producto == "galletas" || producto == "leche" || producto == "gaseosa" || producto == "vino"){
+        switch (producto) {
+            case "arroz":
+                precio = 100;               
+                break;
+            case "galletas":
+                precio = 150;               
+                break;
+            case "leche":
+                precio = 200;               
+                break;
+            case "gaseosa":
+                precio = 250;               
+                break;
+            case "vino":
+                precio = 350;               
+                break;
+            default:
+                break;
+        }
+    let unidades = parseInt(prompt("Cuantas unidades desea llevar"))
+    carrito.push({producto, unidades, precio})    
+    } else {
+        alert("No tenemos ese producto")
+    }
 
-
-const envio = () => {
-    if (total >= 10000) {
-      alert("El envio es gratuito")
-    }else{
-      total += 1500
-      alert("el costo de envio es de 1000, el total es: " + total)
+    seleccion = prompt("¿Desea seguir comprando?")
+    
+    while (seleccion === "no") {
+        alert("Aqui esta la lista de su carrito")
+        carrito.forEach((carritoFinal) => {
+            alert(`producto: ${carritoFinal.producto}, unidades: ${carritoFinal.unidades}, total a pagar por producto ${carritoFinal.unidades * carritoFinal.precio}` )
+        })
+        break;
     }
 }
 
-envio()
-
-const metodoDePago = () => {
-  let metodo = prompt("ingrese el metodo de pago, tarjeta o efectivo" )
-  if (metodo == "tarjeta") {
-    total *= 1.1
-    console.log(total);
-  }else if ( metodo == "efectivo") {
-    total -= 1000
-    alert("tenes un descuento de 1000, el total es:" + total)
-  }
-
-  
-}
-
-metodoDePago()
+const total = carrito.reduce((ecc, el) => ecc + el.precio * el.unidades, 0)
+alert(`el total a pagar por su compra es: ${total}`)
